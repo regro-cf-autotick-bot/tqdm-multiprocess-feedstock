@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/tqdm-multiprocess-{{ version }}.tar.gz
+  - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/tqdm-multiprocess-{{ version }}.tar.gz
     sha256: a74002a1222ea9cbe8cdc9bd460108c6009be359621fbee9b92d0515d4d180f7
   - url: https://raw.githubusercontent.com/EleutherAI/tqdm-multiprocess/master/requirements-dev.txt
     sha256: d345928b32d54a072eb41570d153af069e4056fbb07cbf559d7f43c48c7bb7e2
@@ -14,14 +14,14 @@ source:
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - tqdm
     - colorama
 
@@ -32,6 +32,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/EleutherAI/tqdm-multiprocess
